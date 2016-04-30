@@ -14,3 +14,8 @@ Meteor.publish('posts', function() {
   return Posts.find();
 });
 
+Meteor.publish("employees", function () {
+		
+    return Employees.find({});
+});
+

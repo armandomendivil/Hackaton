@@ -16,3 +16,7 @@ Meteor.methods({
     }
   }
 })
+
+Employees = new Mongo.Collection('employees');
+
+

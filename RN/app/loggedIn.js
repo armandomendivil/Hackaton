@@ -39,28 +39,20 @@ export default React.createClass({
   },
 
   observePosts() {
-    let observer = ddpClient.observe("posts");
-    // observer.added = (id) => {
-    //   console.log(ddpClient.collections.posts)
-    //   this.setState({posts: ddpClient.collections.posts})
-    //   this.setState({test: ddpClient.collections.posts[id]});
-    // }
-    // observer.changed = (id, oldFields, clearedFields, newFields) => {
-    //   this.setState({posts: ddpClient.collections.posts})
-    // }
-    // observer.removed = (id, oldValue) => {
-    //   this.setState({posts: ddpClient.collections.posts})
-    // }
+    let observer = ddpClient.observe("employees");
 
-    observer.added = (id) => this.updateRows(_.cloneDeep(_.values(ddpClient.collections.posts)));
-    observer.changed = (id, oldFields, clearedFields, newFields) => this.updateRows(_.cloneDeep(_.values(ddpClient.collections.posts)));
-    observer.removed = (id, oldValue) => this.updateRows(_.cloneDeep(_.values(ddpClient.collections.posts)));
+    console.log(_.cloneDeep(_.values(ddpClient.collections.employees)))
+
+    observer.added = (id) => this.updateRows(_.cloneDeep(_.values(ddpClient.collections.employees)));
+    observer.changed = (id, oldFields, clearedFields, newFields) => this.updateRows(_.cloneDeep(_.values(ddpClient.collections.employees)));
+    observer.removed = (id, oldValue) => this.updateRows(_.cloneDeep(_.values(ddpClient.collections.employees)));
   },
 
   makeSubscription() {
-    ddpClient.subscribe("posts", [], (results) => {
-      this.setState({posts: ddpClient.collections.posts});
-      this.setState({test: _.cloneDeep(_.values(ddpClient.collections.posts))});
+    ddpClient.subscribe("employees", [], (results) => {
+      debugger
+      this.setState({posts: ddpClient.collections.employees});
+      this.setState({test: _.cloneDeep(_.values(ddpClient.collections.employees))});
     });
   },
   // Add Activity
@@ -114,18 +106,18 @@ export default React.createClass({
     );
   },
 
-  renderFriend: function(posts) {
+  renderFriend: function(emp) {
     return (
       <TouchableOpacity>
       <View>
         <View style={styles.row}>
           <View style={styles.col}>
-            <Image style={styles.circle} source={require('./img/user2.jpeg')}/>
+            <Image style={styles.circle} source={require('./img/' + {emp.img})}/>
           </View>
           <Text style={{ fontSize: 20,fontWeight: '600',color: 'rgb(30, 30, 30)',position:'absolute', top:5,right:10}}>16:40</Text>
-          <Text style={{ fontSize: 12,fontWeight: '400',color: 'rgb(90, 88, 88)',position:'absolute', bottom:10}}>Project / Armando Mendivil</Text>
+          <Text style={{ fontSize: 12,fontWeight: '400',color: 'rgb(90, 88, 88)',position:'absolute', bottom:10}}> {emp.project} / {emp.name}</Text>
           <View style={styles.col}>
-            <Text style={{marginTop:20, fontSize: 20,fontWeight: '600',color: 'rgb(30, 30, 30)'}}>{posts.title}</Text>
+            <Text style={{marginTop:20, fontSize: 20,fontWeight: '600',color: 'rgb(30, 30, 30)'}}>{emp.title}</Text>
           </View>
         </View>
         <View style={styles.li}></View>
