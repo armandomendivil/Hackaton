@@ -155,7 +155,6 @@ var styles = StyleSheet.create({
     fontSize: 18,
   },
   listView: {
-    paddingTop: 20,
     backgroundColor: 'white',
   },
   circle: {

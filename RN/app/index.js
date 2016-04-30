@@ -37,7 +37,7 @@ export default React.createClass({
     }
 
     return (
-      <View style={styles.container}>
+      <View style={{flex: 1,alignItems: 'stretch',}}>
           {body}
       </View>
     );

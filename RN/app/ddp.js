@@ -1,7 +1,7 @@
 import DDPClient from 'ddp-client';
 import { AsyncStorage } from 'react-native';
 let ddpClient = new DDPClient({
-  host: '127.0.0.1',
+  host: '172.16.3.238',
   port: '3000',
   // url: <your websocket url>
 });

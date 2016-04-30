@@ -64,9 +64,9 @@ export default React.createClass({
   render() {
     let count = Object.keys(this.state.posts).length;
     var boole = typeof this.state.test == 'object'
-    
+
     return (
-      <View>
+      <View >
         <Text>Activities: {boole && this.state.test.title}   Total:{count}</Text>
         <Button text="Add" onPress={this.addActivity} />
 
