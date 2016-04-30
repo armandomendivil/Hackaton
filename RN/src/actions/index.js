@@ -76,6 +76,14 @@ export function loginUser(creds) {
     body: `username=${creds.username}&password=${creds.password}`
   }
 
+  return {
+    type: LOGIN_SUCCESS,
+    isFetching: false,
+    isAuthenticated: true,
+    id_token:''
+  }
+
+
   return dispatch => {
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds))
