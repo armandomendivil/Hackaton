@@ -14,8 +14,8 @@ Meteor.publish('posts', function() {
   return Posts.find();
 });
 
+// Get Employees
 Meteor.publish("employees", function () {
-		
-    return Employees.find({});
+   return Employees.find({});
 });
 

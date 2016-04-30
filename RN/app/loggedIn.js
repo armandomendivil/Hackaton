@@ -112,9 +112,9 @@ export default React.createClass({
       <View>
         <View style={styles.row}>
           <View style={styles.col}>
-            <Image style={styles.circle} source={require('./img/' + {emp.img})}/>
+            <Image style={styles.circle} source={{uri: emp.img}}/>
           </View>
-          <Text style={{ fontSize: 20,fontWeight: '600',color: 'rgb(30, 30, 30)',position:'absolute', top:5,right:10}}>16:40</Text>
+          <Text style={{ fontSize: 12,fontWeight: '600',color: 'rgb(30, 30, 30)',position:'absolute', top:5,right:10}}>{emp.createdAt.toLocaleTimeString()}</Text>
           <Text style={{ fontSize: 12,fontWeight: '400',color: 'rgb(90, 88, 88)',position:'absolute', bottom:10}}> {emp.project} / {emp.name}</Text>
           <View style={styles.col}>
             <Text style={{marginTop:20, fontSize: 20,fontWeight: '600',color: 'rgb(30, 30, 30)'}}>{emp.title}</Text>
