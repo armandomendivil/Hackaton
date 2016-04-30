@@ -24,7 +24,7 @@ export default class RightButton extends Component {
        <View>{route.name == 'Main' &&
          <View style={{paddingRight:10,paddingTop:10,}}>
            <TouchableOpacity onPress={() => alert('hello!')}>
-             <Text style={{color:'#fff', fontSize: 20}}>Clear All</Text>
+             <Text style={{color:'#fff', fontSize: 20}}>SignIn</Text>
            </TouchableOpacity>
          </View>}
        </View>

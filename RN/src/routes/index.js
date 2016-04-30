@@ -8,7 +8,7 @@ export const getLayoutScreen = (options) => {
 		passProps: {
       titleConfig:{
         tintColor:'#ffffff',
-        title: 'Event Summary',
+        title: '',
       },
       leftButtonConfig:'Main',
       drawerOpen: false,

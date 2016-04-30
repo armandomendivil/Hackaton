@@ -12,37 +12,36 @@ const theme = getTheme();
 
 export default class Quotes extends Component {
 
-  constructor (props) {
-    super(props)
-    this.dataSource = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
-     this.socket = io('http://192.168.1.70:3464', {jsonp: false});
-  }
-  _renderRow (rowData) {
-    var action = (<Text> VIEW SYSTEM</Text>);
-    return (
-      <View style={styles.containerSystems}>
-      </View>
-    )
-  }
-
-  componentDidMount() {
-    this.props.onSecretQuoteClick('system/getEventSummary')
-  }
-
   render() {
-    const { onSecretQuoteClick, isAuthenticated, quote, isSecretQuote } = this.props
-    const dataSource = this.dataSource.cloneWithRows(this.props.quote);
-    if (!this.props.isSecretQuote) {
-      return this.renderLoadingView();
-    }
-
-
-    return (<ListView style={styles.listView}
-              dataSource={dataSource}
-              renderRow={(rowData) => this._renderRow(rowData)}
-            />
+    return (
+      <View >
+        <View>
+          <View style={styles.row}>
+            <View style={styles.col}>
+              <Image style={styles.circle} source={require('../../img/user2.jpeg')}/>
+            </View>
+            <Text style={{ fontSize: 20,fontWeight: '600',color: 'rgb(30, 30, 30)',position:'absolute', top:5,right:10}}>16:40</Text>
+            <Text style={{ fontSize: 12,fontWeight: '400',color: 'rgb(90, 88, 88)',position:'absolute', bottom:10}}>Project / Armando Mendivil</Text>
+            <View style={styles.col}>
+              <Text style={{marginTop:20, fontSize: 20,fontWeight: '600',color: 'rgb(30, 30, 30)'}}>Activity...</Text>
+            </View>
+          </View>
+          <View style={styles.li}></View>
+        </View>
+        <View>
+          <View style={styles.row}>
+            <View style={styles.col}>
+              <Image style={styles.circle} source={require('../../img/user2.jpeg')}/>
+            </View>
+            <Text style={{ fontSize: 20,fontWeight: '600',color: 'rgb(90, 88, 88)',position:'absolute', top:10,right:10}}>16:40</Text>
+            <Text style={{marginTop:15, fontSize: 12,fontWeight: '400',color: 'rgb(90, 88, 88)',position:'absolute', bottom:10}}>Project / Armando Mendivil</Text>
+            <View style={styles.col}>
+              <Text style={{marginTop:25, fontSize: 20,fontWeight: '600',color: 'rgb(30, 30, 30)'}}>Activity...</Text>
+            </View>
+          </View>
+          <View style={styles.li}></View>
+        </View>
+      </View>
     )
   }
 
@@ -58,9 +57,3 @@ export default class Quotes extends Component {
     );
   }
 }
-
-Quotes.propTypes = {
-  onSecretQuoteClick: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
-  isSecretQuote: PropTypes.bool.isRequired
- }

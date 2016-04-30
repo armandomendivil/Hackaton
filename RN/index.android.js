@@ -27,9 +27,9 @@ let store = createStoreWithMiddleware(hackatonApp)
 class RN extends Component {
   render() {
     return (
-      <Provider store={store}>
+      //<Provider store={store}>
         <App />
-      </Provider>
+      //</Provider>
     );
   }
 }

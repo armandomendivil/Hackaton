@@ -25,7 +25,6 @@ export default class LeftButton extends Component {
     switch (route.name) {
       case 'Main':
         return( <View style={styles.leftButton}>
-                  <Icon name="bars" size={25} color="#fff" iconStyle={{paddingLeft:20}} onPress={openDrawer} />
                 </View>);
         break;
       case 'MonitorPanel':

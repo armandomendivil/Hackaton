@@ -7,14 +7,25 @@ module.exports = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  textfieldWithFloatingLabel: {
+    height: Platform.OS === 'android' ? 0 : 48,  // have to do it on iOS
+    marginTop: 10,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  circle: {
+    height: 80,
+    width: 80,
+    borderRadius: 40,
+    margin:10,
+  },
+  li: {
+    borderBottomColor: '#c8c7cc',
+    borderBottomWidth: 0.5,
+  },
+  col: {
+    flex: 0,
+    flexDirection: 'column',
+  },
+  row: {
+    flexDirection: 'row',
   },
 });
