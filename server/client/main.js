@@ -6,11 +6,16 @@ import './main.html';
 Template.home.onCreated(function() {
   this.subscribe('posts');
   this.subscribe('employees');
+  this.subscribe('logActivity')
 });
 
 Template.home.helpers({
   count() {
     return Posts.find().count();
+  },
+
+  log() {
+  	return  LogActivity.find({}, {sort: {createdAt: -1}})
   }
 });
 

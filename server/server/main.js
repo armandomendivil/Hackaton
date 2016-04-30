@@ -19,3 +19,8 @@ Meteor.publish("employees", function () {
    return Employees.find({});
 });
 
+// Log of activity
+Meteor.publish("logActivity", function () {
+	return LogActivity.find({}, {sort: {createdAt: -1}})
+});
+

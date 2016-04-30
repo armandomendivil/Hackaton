@@ -3,7 +3,6 @@
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
 
   {{>home}}
   
@@ -12,6 +11,12 @@
 <template name="home">
     <p><input type="text" id="activity"></p>
     <p><input type="submit" value="submit" id="addActivity"></p>
+
+    <div>
+      {{#each log}}
+        <p>{{title}}</p>
+      {{/each}}
+    </div>
 </template>
 
 <!-- <template name="home">
