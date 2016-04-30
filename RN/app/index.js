@@ -30,7 +30,6 @@ export default React.createClass({
 
   render() {
     let body;
-    
     if (this.state.connected && this.state.signedIn) {
       body = <LoggedIn changedSignedIn={this.changedSignedIn} />; // Note the change here as well
     } else if (this.state.connected) {
@@ -39,9 +38,7 @@ export default React.createClass({
 
     return (
       <View style={styles.container}>
-        <View style={styles.center}>
           {body}
-        </View>
       </View>
     );
   }
@@ -53,7 +50,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#F5FCFF',
   },
-  center: {
-    alignItems: 'center'
-  }
 });
