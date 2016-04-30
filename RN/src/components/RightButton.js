@@ -23,7 +23,7 @@ export default class RightButton extends Component {
       <View>
        <View>{route.name == 'Main' &&
          <View style={{paddingRight:10,paddingTop:10,}}>
-           <TouchableOpacity onPress={() => alert('hello!')}>
+           <TouchableOpacity onPress={onLogoutClick}>
              <Text style={{color:'#fff', fontSize: 20}}>SignIn</Text>
            </TouchableOpacity>
          </View>}
@@ -43,4 +43,7 @@ export default class RightButton extends Component {
      </View>
     );
   }
+}
+RightButton.propTypes = {
+  onLogoutClick: PropTypes.func.isRequired
 }

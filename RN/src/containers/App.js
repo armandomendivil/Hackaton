@@ -1,6 +1,6 @@
 import React, { Component, PropTypes, Navigator, View, Text, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { loginUser, logoutUser, fetchQuote, fetchSecretQuote } from '../actions/index'
+import { loginUser, logoutUser, fetchQuote, fetchSecretQuote, fetchSecretSystem, fetchSystem } from '../actions/index'
 import Navbar from '../components/Navbar'
 import Drawer from 'react-native-drawer'
 import SideMenu from '../scenes/SideMenu'
@@ -25,7 +25,7 @@ export default class App extends Component {
     this.props.dispatch(logoutUser())
   }
   renderScene = (route, nav) => {
-    const { state, actions, dispatch } = this.props;
+    const { state, actions, dispatch, quote,isAuthenticated, errorMessage, isSecretQuote } = this.props;
     const Component = route.component;
         return (
           <View style={{flex: 1,alignItems: 'stretch',}}>
@@ -44,13 +44,20 @@ export default class App extends Component {
                negotiatePan
                >
                <View>
+                 {isAuthenticated &&
                    <Navbar route={ route }
                     openDrawer={ this.openDrawer }
                     navigator={ nav }
-                  />
+                    onLogoutClick={ this.onLogoutClick }
+                  />}
                 <Component { ...route.props } { ...actions }
                   data={ state } topNavigator={ nav }
+                  onSecretQuoteClick={(endpoint, id) => dispatch(fetchSecretQuote(endpoint, id))}
+                  onSecretSystemClick={(endpoint, id) => dispatch(fetchSecretSystem(endpoint, id))}
                   dispatch={dispatch}
+                  isAuthenticated={isAuthenticated}
+                  isSecretQuote={ isSecretQuote }
+                  quote={quote}
                   navigator={ nav }
                   route={ route }
                 />
@@ -70,10 +77,13 @@ export default class App extends Component {
           passProps: {
             titleConfig:{
               tintColor:'#ffffff',
-              title: '',
+              title: 'Event Summary',
             }
           }
           }}
+        /*navigationBar={ this.props.isAuthenticated && <Navbar onLogoutClick={() => this.props.dispatch(logoutUser())} navigator={this.props.navigator} />}*/
+        /*navigationBar={ this.props.isAuthenticated && <NavigationBar title={titleConfig} rightButton={rightButtonConfig} /> }*/
+
         renderScene={this.renderScene}
         configureScene={(route) => {
           if (route.sceneConfig) {
@@ -85,4 +95,26 @@ export default class App extends Component {
     )
   }
 }
-export default (App)
+
+App.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string,
+  isSecretQuote: PropTypes.bool.isRequired,
+}
+
+function mapStateToProps(state) {
+
+  const { quotes, auth } = state
+  const { quote, authenticated } = quotes
+  const { isAuthenticated, errorMessage } = auth
+
+  return {
+    quote,
+    isSecretQuote: authenticated,
+    isAuthenticated,
+    errorMessage
+  }
+}
+
+export default connect(mapStateToProps)(App)

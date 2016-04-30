@@ -1,4 +1,4 @@
-import React, { Component, PropTypes, Text, StyleSheet, View, Image } from 'react-native'
+import React, { Component, PropTypes, Text, TextInput, TouchableHighlight, StyleSheet, View, ScrollView, Image } from 'react-native'
 import { MKTextField, MKButton,  MKColor,  mdl, } from 'react-native-material-kit';
 import styles from '../components/Styles';
 
@@ -41,11 +41,27 @@ const UsernameInput = MKTextField.textfieldWithFloatingLabel()
 export default class Login extends Component {
 
   render() {
+    const { errorMessage } = this.props
 
     return (
-      <View >
+      <View style={styles.containerLogin}>
+        <Image style={styles.bg} source={{uri:'http://i.imgur.com/xlQ56UK.jpg'}}/>
+        <View style={styles.header}>
+          <Image style={styles.mark} source={{uri:'http://i.imgur.com/da4G0Io.png'}}/>
+        </View>
+          <View style={styles.inputContainer}>
             <UsernameInput ref="username" withOnChangeText={(event) => this.setState({username: event})}/>
+          </View>
+          <View style={styles.inputContainer}>
             <PasswordInput ref="password" withOnChangeText={(event) => this.setState({password: event})}/>
+          </View>
+          <View style={styles.inputContainer}>
+            <ColoredRaisedButton  onPress={(event) => this.handleClick(event)} />
+        </View>
+
+        {errorMessage &&
+          <Text>{errorMessage}</Text>
+        }
       </View>
     )
   }
@@ -58,5 +74,6 @@ export default class Login extends Component {
 }
 
 Login.propTypes = {
-  onLoginClick: PropTypes.func.isRequired
+  onLoginClick: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string
 }

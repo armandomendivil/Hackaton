@@ -17,8 +17,8 @@ export default class NavBar extends Component {
     return (
         <NavigationBar
           title={route.passProps.titleConfig}
-          tintColor={'#20b2aa'}
-          rightButton={<RightButton route={ route } navigator={ this.props.navigator } />}
+          tintColor={'#3CB878'}
+          rightButton={<RightButton route={ route } navigator={ this.props.navigator } onLogoutClick = {onLogoutClick} />}
           leftButton={<LeftButton route={ route } navigator={ this.props.navigator } openDrawer={ openDrawer }/>}
         />
     );
