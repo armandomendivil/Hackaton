@@ -1,37 +1,32 @@
-import React, { AsyncStorage, Component, PropTypes, Text, StyleSheet, View,TouchableOpacity } from 'react-native'
-import Login from './Login'
-import Logout from './Logout'
-import NavigationBar from 'react-native-navbar';
-import Quotes from '../components/Quotes'
-//import styles from '../components/Styles'
-import { loginUser, logoutUser, validateAuth, fetchSecretQuote } from '../actions'
-import ddpClient from '../components/ddp'
-import LoggedOut from '../components/loggedOut'
-import LoggedIn from '../components/loggedIn'
+import React, {
+  View,
+  StyleSheet
+} from 'react-native';
 
-export default class Main extends Component {
-  constructor (props, context) {
-    super(props, context)
-    this.state = {
+import ddpClient from './ddp';
+import LoggedIn from './loggedIn';
+import LoggedOut from './loggedOut';
+
+export default React.createClass({
+  getInitialState() {
+    return {
       connected: false,
       signedIn: false
     }
-  }
+  },
 
   componentDidMount() {
-
-   ddpClient.connect((err, wasReconnect) => {
+    ddpClient.connect((err, wasReconnect) => {
       let connected = true;
       if (err) connected = false;
 
       this.setState({ connected: connected });
     });
-
-  }
+  },
 
   changedSignedIn(status = false) {
     this.setState({signedIn: status});
-  }
+  },
 
   render() {
     let body;
@@ -42,7 +37,7 @@ export default class Main extends Component {
       body = <LoggedOut changedSignedIn={this.changedSignedIn} />;
     }
 
-     return (
+    return (
       <View style={styles.container}>
         <View style={styles.center}>
           {body}
@@ -50,9 +45,7 @@ export default class Main extends Component {
       </View>
     );
   }
-}
-
-
+});
 
 const styles = StyleSheet.create({
   container: {
