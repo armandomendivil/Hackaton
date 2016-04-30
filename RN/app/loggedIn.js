@@ -1,6 +1,8 @@
 import React, {
+  ListView,
   Text,
   TextInput,
+  StyleSheet,
   View,
 } from 'react-native';
 
@@ -12,13 +14,13 @@ if (typeof process === 'undefined') process = {};
 process.nextTick = setImmediate;
 
 export default React.createClass({
-  getInitialState() {
+    getInitialState: function() {
     return {
-      posts: {},
-      test: {
-        title: 'hi'
-      }
-    }
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => !_.isEqual(row1, row2),
+      }),
+      loaded: false,
+    };
   },
 
   componentDidMount() {
@@ -26,19 +28,30 @@ export default React.createClass({
     this.observePosts();
   },
 
+  updateRows: function(rows) {
+    this.setState({
+     dataSource: this.state.dataSource.cloneWithRows(rows),
+     loaded: true,
+   });
+  },
+
   observePosts() {
     let observer = ddpClient.observe("posts");
-    observer.added = (id) => {
-      console.log(ddpClient.collections.posts)
-      this.setState({posts: ddpClient.collections.posts})
-      this.setState({test: ddpClient.collections.posts[id]});
-    }
-    observer.changed = (id, oldFields, clearedFields, newFields) => {
-      this.setState({posts: ddpClient.collections.posts})
-    }
-    observer.removed = (id, oldValue) => {
-      this.setState({posts: ddpClient.collections.posts})
-    }
+    // observer.added = (id) => {
+    //   console.log(ddpClient.collections.posts)
+    //   this.setState({posts: ddpClient.collections.posts})
+    //   this.setState({test: ddpClient.collections.posts[id]});
+    // }
+    // observer.changed = (id, oldFields, clearedFields, newFields) => {
+    //   this.setState({posts: ddpClient.collections.posts})
+    // }
+    // observer.removed = (id, oldValue) => {
+    //   this.setState({posts: ddpClient.collections.posts})
+    // }
+
+    observer.added = (id) => this.updateRows(_.cloneDeep(_.values(ddpClient.collections.posts)));
+    observer.changed = (id, oldFields, clearedFields, newFields) => this.updateRows(_.cloneDeep(_.values(ddpClient.collections.posts)));
+    observer.removed = (id, oldValue) => this.updateRows(_.cloneDeep(_.values(ddpClient.collections.posts)));
   },
 
   makeSubscription() {
@@ -61,23 +74,59 @@ export default React.createClass({
     });
   },
 
-  render() {
-    let count = Object.keys(this.state.posts).length;
-    var boole = typeof this.state.test == 'object'
-    
+  render: function() {
+    if (!this.state.loaded) {
+      return this.renderLoadingView();
+    }
+
     return (
-      <View>
-        <Text>Activities: {boole && this.state.test.title}   Total:{count}</Text>
-        <Button text="Add" onPress={this.addActivity} />
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderFriend}
+        style={styles.listView}
+      />
+    );
+  },
 
-        <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          onChangeText={(text) => this.setState({text})}
-          value={this.state.text}
-        />
-
-        <Button text="Sign Out" onPress={this.handleSignOut} />
+  renderLoadingView: function() {
+    return (
+      <View style={styles.container}>
+        <Text>
+          Loading lists...
+        </Text>
       </View>
     );
-  }
+  },
+
+  renderFriend: function(posts) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.firstName}>{posts.title}</Text>
+        
+      </View>
+    );
+  },
+});
+
+
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    padding: 10,
+  },
+  firstName: {
+    flex: 5,
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  lastName: {
+    flex: 5,
+    fontSize: 18,
+  },
+  listView: {
+    paddingTop: 20,
+    backgroundColor: 'white',
+  },
 });
