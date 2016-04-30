@@ -116,7 +116,7 @@ export default React.createClass({
 
   renderFriend: function(posts) {
     return (
-      <TouchableHighlight>
+      <TouchableOpacity>
       <View>
         <View style={styles.row}>
           <View style={styles.col}>
@@ -130,7 +130,7 @@ export default React.createClass({
         </View>
         <View style={styles.li}></View>
       </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     );
   },
 });
