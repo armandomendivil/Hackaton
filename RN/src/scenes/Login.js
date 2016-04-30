@@ -1,7 +1,7 @@
-import React, { Component, PropTypes, Text, TextInput, TouchableHighlight, StyleSheet, View, ScrollView, Image } from 'react-native'
+import React, { Component, PropTypes, Text, TextInput, TouchableHighlight, StyleSheet, View, ScrollView, Image,TouchableOpacity } from 'react-native'
 import { MKTextField, MKButton,  MKColor,  mdl, } from 'react-native-material-kit';
 import styles from '../components/Styles';
-
+import NavigationBar from 'react-native-navbar';
 // Input username
 const UsernameInput = MKTextField.textfieldWithFloatingLabel()
   .withPlaceholder('Username')
@@ -44,20 +44,22 @@ export default class Login extends Component {
     const { errorMessage } = this.props
 
     return (
-      <View style={styles.containerLogin}>
-        <Image style={styles.bg} source={{uri:'http://i.imgur.com/xlQ56UK.jpg'}}/>
-        <View style={styles.header}>
-          <Image style={styles.mark} source={{uri:'http://i.imgur.com/da4G0Io.png'}}/>
-        </View>
-          <View style={styles.inputContainer}>
+      <View>
+      <NavigationBar
+        title={{
+          title: '',
+        }}
+        tintColor={'#3CB878'}
+        rightButton={<View style={{paddingRight:10,paddingTop:10,}}>
+          <TouchableOpacity onPress={(event) => this.handleClick(event)}>
+            <Text style={{color:'#fff', fontSize: 20}}>SignIn</Text>
+          </TouchableOpacity>
+        </View>}
+        />
+          <View>
             <UsernameInput ref="username" withOnChangeText={(event) => this.setState({username: event})}/>
-          </View>
-          <View style={styles.inputContainer}>
             <PasswordInput ref="password" withOnChangeText={(event) => this.setState({password: event})}/>
           </View>
-          <View style={styles.inputContainer}>
-            <ColoredRaisedButton  onPress={(event) => this.handleClick(event)} />
-        </View>
 
         {errorMessage &&
           <Text>{errorMessage}</Text>
